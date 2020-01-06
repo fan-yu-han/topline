@@ -7,7 +7,10 @@
     <van-button type="info">信息按钮</van-button>
     <van-button type="warning">警告按钮</van-button>
     <van-button type="danger">危险按钮</van-button>
+
+    <div class='nice'>你好</div>
   </div>
+
 </template>
 
 <script>
@@ -16,6 +19,12 @@ export default {
 }
 </script>
 
-<style scoped>
-
+<style scoped lang='less'>
+@import url(./styles/variables.less);
+.nice {
+  color:@color-primary;
+  width: 100px;
+  height: 50px;
+  background-color: pink;
+}
 </style>
