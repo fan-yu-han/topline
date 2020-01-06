@@ -23,8 +23,8 @@ export default {
 @import url(./styles/variables.less);
 .nice {
   color:@color-primary;
-  width: 100px;
-  height: 50px;
+  width: 375px;
+  height: 100px;
   background-color: pink;
 }
 </style>
