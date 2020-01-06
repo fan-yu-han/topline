@@ -2,6 +2,9 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
 import store from './store'
+import './styles/index.less'
+import 'normalize.css' //
+import 'amfe-flexible' // rem 适配
 // 注册 Vant 组件
 import './utils/register-vant'
 // // 加载
