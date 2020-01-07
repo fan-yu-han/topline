@@ -55,13 +55,24 @@ export default {
       // 1.获取表单数据
       const user = this.user
       // 2.表单验证
+      // 表单通过验证 开始 lodding
+      // 开始转圈圈
+      this.$toast.loading({
+        duration: 0, // 持续时间，0表示持续展示不停止
+        forbidClick: true, // 是否禁止背景点击
+        message: '登录中...' // 提示消息
+      })
       // 3.请求提交
       try {
         const res = await login(user)
         console.log(res)
+        // 提示 success 或者 fail 的时候，会先把其它的 toast 先清除
+        this.$toast.success('登录成功')
       } catch (err) {
         console.log('登录失败', err)
+        this.$toast.fail('登录失败，手机号或验证码错误')
       }
+      //   4.根据接口返回结果执行后续处理
     }
   }
 }
