@@ -8,7 +8,7 @@
         <van-cell-group>
             <van-field
                 v-model="user.mobile"
-                required
+                left-icon="phone"
                 clearable
                 label="手机号"
                 placeholder="请输入手机号"
@@ -16,11 +16,22 @@
 
             <van-field
                 v-model="user.code"
+                left-icon="lock"
                 label="验证码"
                 placeholder="请输入验证码"
-                required
             >
-                <van-button slot="button" size="small" type="primary">发送验证码</van-button>
+                <van-count-down
+                    v-if="isCountDownShow"
+                    slot="button"
+                    :time="1000 * 60"
+                    format="ss 秒"
+                />
+                <van-button slot="button"
+                  v-else
+                 size="small"
+                 type="primary">
+                 发送验证码
+                 </van-button>
             </van-field>
         </van-cell-group>
 
@@ -42,8 +53,8 @@ export default {
       user: {
         mobile: '', // 手机号
         code: '' // 验证码
-      }
-
+      },
+      isCountDownShow: false
     }
   },
   computed: {},

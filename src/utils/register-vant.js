@@ -7,7 +7,9 @@ import {
   CellGroup,
   NavBar,
   Field,
-  Toast
+  Toast,
+  Icon,
+  CountDown
 } from 'vant'
 // 注册
 Vue.use(Button)
@@ -16,3 +18,5 @@ Vue.use(Button)
   .use(NavBar)
   .use(Field)
   .use(Toast)
+  .use(Icon)
+  .use(CountDown)
