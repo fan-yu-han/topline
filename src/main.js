@@ -13,7 +13,7 @@ import './utils/register-vant'
 import './styles/index.less'
 
 // 加载表单验证插件初始化配置
-import './utils/validation'
+import './utils/validation.js'
 Vue.config.productionTip = false
 
 new Vue({

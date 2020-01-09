@@ -5,21 +5,24 @@
         <!-- 导航栏 -->
 
         <!-- 表单 -->
-        <van-cell-group>
+        <ValidationObserver>
+          <ValidationProvider name="手机号" rules="required|length:4" v-slot="{ errors }">
             <van-field
                 v-model="user.mobile"
                 left-icon="phone"
                 clearable
                 label="手机号"
-                placeholder="请输入手机号"
-            />
-
+                placeholder="请输入手机号">
+            </van-field>
+            <span>{{ errors[0] }}</span>
+          </ValidationProvider>
+          <ValidationProvider>
             <van-field
                 v-model="user.code"
                 left-icon="lock"
                 label="验证码"
-                placeholder="请输入验证码"
-            >
+                placeholder="请输入验证码" >
+
                 <van-count-down
                     v-if="isCountDownShow"
                     slot="button"
@@ -35,7 +38,8 @@
                  发送验证码
                  </van-button>
             </van-field>
-        </van-cell-group>
+          </ValidationProvider>
+        </ValidationObserver>
 
         <div class="btn-warp">
             <van-button type="info" @click="onLogin">登录</van-button>
