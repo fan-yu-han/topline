@@ -102,7 +102,10 @@ export default {
       // 3.请求提交
       try {
         const res = await login(user)
-        console.log(res)
+
+        // 讲登录状态存储到 Vuex 容器中
+        this.$store.commit('setUser', res.data.data)
+
         // 提示 success 或者 fail 的时候，会先把其它的 toast 先清除
         this.$toast.success('登录成功')
       } catch (err) {
