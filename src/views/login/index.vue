@@ -5,8 +5,8 @@
         <!-- 导航栏 -->
 
         <!-- 表单 -->
-        <ValidationObserver>
-          <ValidationProvider name="手机号" rules="required|length:4" v-slot="{ errors }">
+        <ValidationObserver  ref="form">
+          <ValidationProvider name="手机号" rules="required">
             <van-field
                 v-model="user.mobile"
                 left-icon="phone"
@@ -14,9 +14,9 @@
                 label="手机号"
                 placeholder="请输入手机号">
             </van-field>
-            <span>{{ errors[0] }}</span>
+
           </ValidationProvider>
-          <ValidationProvider>
+          <ValidationProvider name="验证码" rules="required">
             <van-field
                 v-model="user.code"
                 left-icon="lock"
@@ -74,6 +74,12 @@ export default {
       // 2.表单验证
       // 表单通过验证 开始 lodding
       // 开始转圈圈
+      const success = await this.$refs.form.validate()
+
+      if (!success) {
+        console.log('验证失败')
+        return
+      }
       this.$toast.loading({
         duration: 0, // 持续时间，0表示持续展示不停止
         forbidClick: true, // 是否禁止背景点击
