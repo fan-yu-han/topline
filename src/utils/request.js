@@ -29,7 +29,7 @@ request.defaults.transformResponse = [function (data) {
 }]
 
 // 请求拦截器
-axios.interceptors.request.use(function (config) {
+request.interceptors.request.use(function (config) {
   // 统一设置token
   const { user } = store.state
   if (user) {
@@ -42,7 +42,7 @@ axios.interceptors.request.use(function (config) {
 })
 // 相应拦截器
 // Add a response interceptor
-axios.interceptors.response.use(function (response) {
+request.interceptors.response.use(function (response) {
   // Any status code that lie within the range of 2xx cause this function to trigger
   // Do something with response data
   return response
