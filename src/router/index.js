@@ -7,8 +7,36 @@ const routes = [
   {
     path: '/login',
     name: 'login',
+    // 登录页面
     // @ 是src 目录的别名 这是 VueCli 项目中特殊的提供
     component: () => import('@/views/login')
+  },
+  {
+    path: '/',
+    name: 'tab-bar',
+    component: () => import('@/views/tab-bar'),
+    children: [
+      {
+        path: '', // 默认子路由
+        name: 'home',
+        component: () => import('@/views/home')
+      },
+      {
+        path: 'qa',
+        name: 'qa',
+        component: () => import('@/views/qa')
+      },
+      {
+        path: 'video',
+        name: 'video',
+        component: () => import('@/views/video')
+      },
+      {
+        path: 'my',
+        name: 'my',
+        component: () => import('@/views/my')
+      }
+    ]
   }
 ]
 
