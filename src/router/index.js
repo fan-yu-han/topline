@@ -13,7 +13,8 @@ const routes = [
   },
   {
     path: '/',
-    name: 'tab-bar',
+    // 不要给有默认子路由的父路由起名字
+    // name: 'tab-bar',
     component: () => import('@/views/tab-bar'),
     children: [
       {

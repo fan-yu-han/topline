@@ -11,7 +11,11 @@
         title 标签标题
      -->
     <van-tabs v-model="active">
-      <van-tab title="标签 1">
+      <van-tab
+      :title="channel.name"
+      v-for="channel in userChannels"
+      :key="channel.id"
+      >
         <!-- 文章列表 -->
         <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
           <van-list
@@ -29,15 +33,14 @@
         </van-pull-refresh>
         <!-- /文章列表 -->
       </van-tab>
-      <van-tab title="标签 2">内容 2</van-tab>
-      <van-tab title="标签 3">内容 3</van-tab>
-      <van-tab title="标签 4">内容 4</van-tab>
+
     </van-tabs>
     <!-- /频道列表 -->
   </div>
 </template>
 
 <script>
+import { getUserChannels } from '@/api/user'
 export default {
   name: 'HomePage',
   components: {},
@@ -48,12 +51,15 @@ export default {
       list: [],
       loading: false,
       finished: false,
-      isLoading: false
+      isLoading: false,
+      userChannels: [] // 用户频道列表
     }
   },
   computed: {},
   watch: {},
-  created () {},
+  created () {
+    this.loadUserChannels()
+  },
   mounted () {},
   methods: {
     // 上拉加载更多调用 onLoad
@@ -77,6 +83,10 @@ export default {
         this.$toast('刷新成功')
         this.isLoading = false
       }, 500)
+    },
+    async loadUserChannels () {
+      const { data } = await getUserChannels()
+      this.userChannels = data.data.channels
     }
   }
 }
