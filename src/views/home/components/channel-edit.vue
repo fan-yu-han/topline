@@ -5,11 +5,13 @@
     </van-cell>
     <!-- 我的频道 -->
      <van-grid :gutter="10">
-    <van-grid-item
-        v-for="channel in userChannels"
-        :key="channel.id"
-        :text="channel.name"
-      />
+        <van-grid-item
+            v-for="channel in userChannels"
+            :key="channel.id"
+            :text="channel.name"
+        >
+           <van-icon class="close-icon" slot="icon" name="close" />
+        </van-grid-item>
     </van-grid>
     <!-- 剩余频道 -->
     <van-cell title="推荐频道" :border="false" />
@@ -75,8 +77,19 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang='less'>
 .channel-edit {
   padding: 40px 0;
+    ::v-deep .van-grid-item__content {
+    position: relative;
+    .van-grid-item__icon-wrapper {
+      position: absolute;
+      top: -10px;
+      right: -5px;
+      .close-icon {
+        font-size: 16px;
+      }
+    }
+  }
 }
 </style>
