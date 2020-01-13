@@ -36,7 +36,9 @@
       closeable
       close-icon-position="top-left"
       :style="{ height: '100%' }"
-    />
+    >
+      <channel-edit />
+    </van-popup>
     <!-- /频道编辑 -->
   </div>
 </template>
@@ -44,16 +46,17 @@
 <script>
 import { getUserChannels } from '@/api/user'
 import ArticleList from './components/article-list'
+import ChannelEdit from './components/channel-edit'
 export default {
   name: 'HomePage',
   components: {
-    ArticleList
+    ArticleList,
+    ChannelEdit
   },
   props: {},
   data () {
     return {
       active: 0,
-
       userChannels: [], // 用户频道列表
       isChannelEditShow: true // 频道编辑的显示状态
 
