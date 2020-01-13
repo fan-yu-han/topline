@@ -18,9 +18,13 @@
             @click="onUserChannelClick(index)"
         >
         <!-- 点击onUserChannelClick(index) 删除频道 -->
-        <span  slot="text" class="text" :class="{active:value===index}">{{channel.name}}</span>
+        <span
+        slot="text"
+        class="text"
+        :class="{active:value===index}"
+        >{{channel.name}}</span>
          <van-icon
-                v-show="isEditShow"
+                v-show="isEditShow && index !==0"
                 class="close-icon"
                 slot="icon"
                 name="close"
@@ -95,7 +99,7 @@ export default {
     },
     onUserChannelClick (index) {
       // 如果是编辑状态，则删除频道
-      if (this.isEditShow) {
+      if (this.isEditShow && index !== 0) {
         this.userChannels.splice(index, 1)
       } else {
         // 如果是非编辑状态，则切换频道
