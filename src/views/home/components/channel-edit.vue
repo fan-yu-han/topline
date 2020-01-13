@@ -3,7 +3,7 @@
     <van-cell title="我的频道" :border="false">
         <van-button size="mini" round type="danger" plain>编辑</van-button>
     </van-cell>
-
+    <!-- 我的频道 -->
      <van-grid :gutter="10">
     <van-grid-item
         v-for="channel in userChannels"
@@ -11,13 +11,14 @@
         :text="channel.name"
       />
     </van-grid>
-
+    <!-- 剩余频道 -->
     <van-cell title="推荐频道" :border="false" />
     <van-grid :gutter="10">
       <van-grid-item
         v-for="channel in remainingChannels"
         :key="channel.id"
         :text="channel.name"
+        @click="onAdd(channel)"
       />
     </van-grid>
   </div>
@@ -66,6 +67,9 @@ export default {
     async loadAllChannels () {
       const { data } = await getAllChannels()
       this.allChannels = data.data.channels
+    },
+    onAdd (channel) {
+      this.userChannels.push(channel)
     }
   }
 }
