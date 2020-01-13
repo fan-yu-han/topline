@@ -37,7 +37,23 @@
       close-icon-position="top-left"
       :style="{ height: '100%' }"
     >
-      <channel-edit  :user-channels="userChannels"/>
+       <!--
+        让子组件双向绑定 active
+        在组件上使用 v-model
+          默认传递一个名字叫 value的数据给子组件 :value="active"
+          默认监听名字叫 input 的自定义事件： @input="active = 事件参数"
+            当子组件内部发布：this.$emit('input', 123)
+        v-model 还是父子通信
+        什么时候用？当你想要在子组件和父组件之间同步一些数据的时候，建议使用 v-model，更简洁
+        它的本质还是父子组件通信
+        在一个组件上，v-mode 只能使用一次
+        参考文档：https://cn.vuejs.org/v2/guide/components-custom-events.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BB%84%E4%BB%B6%E7%9A%84-v-model
+      -->
+      <channel-edit
+      :user-channels="userChannels"
+      v-model="active"
+      @close="isChannelEditShow=false"
+      />
     </van-popup>
     <!-- /频道编辑 -->
   </div>
