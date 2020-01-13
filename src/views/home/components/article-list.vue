@@ -1,5 +1,9 @@
 <template>
   <!-- 文章列表 -->
+   <!--
+    v-model="isLoading" 控制下拉刷新的 loading
+    @refresh 当下拉刷新的时候它会触发该事件
+   -->
   <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
     <!--
       List 列表组件
@@ -77,33 +81,23 @@ export default {
         this.finished = true
       }
     },
-    // 上拉加载更多调用 onLoad
-    // List 会监听浏览器的滚动事件并计算列表的位置，当列表底部与可视区域的距离小于offset时，
-    // List 会触发一次 load 事件。
-    // List 初始化后会触发一次 load 事件，用于加载第一屏的数据
-    // 为什么会连续触发 load 事件？
-    // onLoad () {
-    //   console.log(123)
-    //   // 1. 请求获取数据
-    //   setTimeout(() => {
-    //     // 2. 把请求获取到的数据添加到数组列表中
-    //     for (let i = 0; i < 10; i++) {
-    //       this.list.push(this.list.length + 1)
-    //     }
-    //     // 3. 加载状态结束
-    //     this.loading = false
-    //     // 4. 数据全部加载完成
-    //     if (this.list.length >= 40) {
-    //       this.finished = true
-    //     }
-    //   }, 2000)
-    // },
-    // 下拉刷新调用 onRefresh
-    onRefresh () {
-      setTimeout(() => {
-        this.$toast('刷新成功')
-        this.isLoading = false
-      }, 500)
+
+    async onRefresh () {
+      // 1 请求获取数据
+      const { data } = await getArticles({
+        channel_id: this.channel.id, // 频道id
+        // 第1次使用 Date.now() 获取最新数据
+        // 下一页的数据使用本次返回的数据中的 timestamp
+        timestamp: Date.now(), // 时间戳，请求新的推荐数据传当前的时间戳，请求历史推荐传指定的时间戳
+        with_top: 1
+      })
+      // 2 如果有最新数据把 数据放到列表的顶部
+      const { results } = data.data
+      this.list.unshift(...results)
+      // 3 关闭下拉 刷新菜单的loading
+      this.isLoading = false
+      // 4 提示成功
+      this.$toast(`更新了${results.length}条数据`)
     }
   }
 }
