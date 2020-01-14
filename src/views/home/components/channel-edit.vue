@@ -124,6 +124,7 @@ export default {
     position: relative;
     .van-grid-item__icon-wrapper {
       position: absolute;
+      background: #f4f5f6;
       top: -10px;
       right: -5px;
       .close-icon {
@@ -134,6 +135,7 @@ export default {
 }
 .text {
     font-size: 14px;
+
 }
 .active {
     color: red;
