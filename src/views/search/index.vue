@@ -39,18 +39,14 @@
         &nbsp;&nbsp;
         <span>完成</span>
       </van-cell>
-      <van-cell title="单元格">
+        <van-cell
+        :title="item"
+        v-for="(item, index) in searchHistories"
+        :key="index"
+      >
         <van-icon name="close"></van-icon>
       </van-cell>
-      <van-cell title="单元格">
-        <van-icon name="close"></van-icon>
-      </van-cell>
-      <van-cell title="单元格">
-        <van-icon name="close"></van-icon>
-      </van-cell>
-      <van-cell title="单元格">
-        <van-icon name="close"></van-icon>
-      </van-cell>
+
     </van-cell-group>
     <!-- /历史记录 -->
 
@@ -60,6 +56,7 @@
 <script>
 import SearchResult from './components/search-result'
 import { getSuggestions } from '@/api/search'
+import { getItem, setItem } from '@/utils/storage'
 export default {
   name: 'SearchPage',
   components: {
@@ -70,16 +67,27 @@ export default {
     return {
       searchText: '',
       isResultShow: false,
-      suggestions: [] // 联想建议列表
+      suggestions: [], // 联想建议列表
+      searchHistories: getItem('search-histories') || [] // 搜索历史记录
     }
   },
   computed: {},
-  watch: {},
+  watch: {
+    searchHistories (newVal) {
+      setItem('search-histories', newVal)
+    }
+  },
   created () {},
   mounted () {},
   methods: {
     onSearch () {
-      console.log('onSearch')
+      // 记录搜索历史记录
+      const index = this.searchHistories.indexOf(this.searchText)
+      if (index !== -1) {
+        this.searchHistories.splice(index, 1)
+      }
+      this.searchHistories.unshift(this.searchText)
+      // 展示搜索结果
       this.isResultShow = true
     },
     async onSearchInput () {
